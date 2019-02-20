@@ -45,10 +45,10 @@ void myData()
 {	
 		GLfloat vertices[] = {
 		//Position				//Color
-		-0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	//V0 - Frontal
-		0.5f, -0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	//V1
-		0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	//V5
-		-0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	//V4
+		-0.5f, -1.0f, 0.5f,		1.0f, 0.0f, 0.0f,	//V0 - Frontal
+		0.0f, -1.0f, 0.5f,		1.0f, 0.0f, 0.0f,	//V1 ancho
+		0.0f, 1.0f, 0.5f,		1.0f, 0.0f, 0.0f,	//V5 ancho
+		-0.5f, 1.0f, 0.5f,		1.0f, 0.0f, 0.0f,	//V4
 
 		0.5f, -0.5f, -0.5f,		1.0f, 1.0f, 0.0f,	//V2 - Trasera
 		-0.5f, -0.5f, -0.5f,	1.0f, 1.0f, 0.0f,	//V3
@@ -60,10 +60,10 @@ void myData()
 		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, 1.0f,	//V3
 		-0.5f, -0.5f, 0.5f,		0.0f, 0.0f, 1.0f,	//V0
 
-		0.5f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	//V5 - Der
-		0.5f, -0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	//V1
-		0.5f, -0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	//V2
-		0.5f, 0.5f, -0.5f,		0.0f, 1.0f, 0.0f,	//V6
+		0.0f, 1.0f, 0.5f,		0.0f, 1.0f, 0.0f,	//V5 - Der
+		0.0f, -1.0f, 0.5f,		0.0f, 1.0f, 0.0f,	//V1
+		0.0f, -1.0f, -0.5f,		0.0f, 1.0f, 0.0f,	//V2
+		0.0f, 1.0f, -0.5f,		0.0f, 1.0f, 0.0f,	//V6
 
 		-0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 1.0f,	//V4 - Sup
 		0.5f, 0.5f, 0.5f,		1.0f, 0.0f, 1.0f,	//V5
@@ -136,7 +136,7 @@ void display(void)
 	glDrawArrays(GL_QUADS, 0, 24); //A lonely cube :(
 	model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));//traslación a la matriz del modelo
 	projectionShader.setMat4("model", model);
-	glDrawArrays(GL_QUADS, 0, 24);
+	//glDrawArrays(GL_QUADS, 0, 24);
 	glBindVertexArray(0);
 
 }
