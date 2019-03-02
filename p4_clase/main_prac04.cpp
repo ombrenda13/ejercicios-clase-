@@ -1,7 +1,21 @@
 /*---------------------------------------------------------*/
-/* ----------------   Pr�ctica 4 --------------------------*/
+/* ----------------   Práctica 4 --------------------------*/
 /*-----------------    2019-2   ---------------------------*/
-/*------------- Computaci�n gr�fica e interacci�n humano computadora  ---------------*/
+/*------------- Computación gráfica e interacción humano computadora
+BRENDA ORTIZ MARTÍNEZ 
+GRUPO 4 LAB COMPUTACIÓN GRÁFICA 
+INSTRUCCIONES 
+FLECHAS DEL TECLADO: 
+	<rotar izquierda
+	> rotar derecha 
+	^ rotar hacia arriba
+	v rotar hacia abajo 
+	TECLA A: movimiento izquierda
+	TECLA D: movimiento derecha
+	TECLA W: acercar
+	TECLA S: alejar
+
+---------------*/
 #include <glew.h>
 #include <glfw3.h>
 
@@ -209,7 +223,7 @@ model = glm::translate(model, glm::vec3(-.85, -.7, 0));
 	model = glm::scale(model, glm::vec3(1, 1, 1));// para hacer escalas al objeto x,
 	projectionShader.setVec3("aColor", glm::vec3(1.02f, 0.5f, 0.0f));
 	projectionShader.setMat4("model", model);
-	glDrawArrays(GL_QUADS, 0, 24); //pierna izquierda
+	glDrawArrays(GL_QUADS, 0, 24); //pie der
 
 
 	//model = glm::translate(model, glm::vec3(3, 0, 0));
@@ -283,7 +297,7 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//Mi funci�n de dibujo
+		//Mi función de dibujo
 		display();
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
