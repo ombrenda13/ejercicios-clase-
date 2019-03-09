@@ -1,7 +1,49 @@
 /*---------------------------------------------------------*/
 /* ----------------   Práctica 5 --------------------------*/
 /*-----------------    2019-2   ---------------------------*/
-/*------------- Computación gráfica e interacción humano computadora ---------------*/
+/*------------- Computación gráfica e interacción humano computadora 
+BRENDA ORTIZ MARTÍNEZ 
+GRUPO 4 
+INSTRUCCIONES:
+	flecha izquierda--rotar todo el brazo izquierda
+	flecha derecha-- rotar  todo el brazo  derecha
+	flecha arriba-- rotar  todo el brazo  hacia arriba
+	flecha abajo--- rotar  todo el brazo  hacia abajo
+	TECLA A: movimiento  todo el brazo  izquierda
+	TECLA D: movimiento  todo el brazo  derecha
+	TECLA W: acercar brazo
+	TECLA S: alejar brazo
+
+	TECLA T----rota bicep
+	TECLA SHIFT(DERECHA)+ TECLA T---regresa bicep a posicion inicial
+
+	TECLA Y--rota antebrazo
+	TECLA SHIFT(DERECHA)+ TECLA Y--regresa antebrazo a posicion inicial
+
+	TECLA U--rota muñeca
+	TECLA SHIFT(DERECHA)+ TECLA U--regresa muñeca a posicion inicial
+	
+
+	TECLA SHIFT(DERECHA)+ TECLA I--mueve pulgar
+	TECLA I --regresa pulgar a posicion inicial
+	
+	TECLA SHIFT(DERECHA)+ TECLA H--mueve indice
+	TECLA H--regresa indice a posicion inicial
+	
+	TECLA SHIFT(DERECHA)+ TECLA J--mueve dedo medio
+	TECLA J--regresa dedo medio a posición inicial
+	
+	TECLA SHIFT(DERECHA)+ TECLA K--mueve dedo anular
+	TECLA K--regresa dedo anular a posicion inicial
+	
+	TECLA SHIFT(DERECHA)+ TECLA L--mueve dedo meñique
+	TECLA L--regresa dedo meñique a posicion inicial
+	
+
+
+
+
+---------------*/
 #include <glew.h>
 #include <glfw3.h>
 
@@ -38,6 +80,7 @@ rotY = 0.0f;
 float angHombro = 0.0;
 float angCodo = 0.0;
 float angMuñeca = 0.0;
+float angPu = 0.0, angIn = 0.0, angMed = 0.0, angAnu = 0.0, angMeñ = 0.0;
 
 
 void getResolution()
@@ -146,12 +189,13 @@ void display(void)
 	glBindVertexArray(VAO);
 	projectionShader.setMat4("model", model);
 	projectionShader.setVec3("aColor", glm::vec3(1, 1, 0));
+	
 	glDrawArrays(GL_QUADS, 0, 24);//hombro
 	model = glm::rotate(model,glm::radians(angHombro),glm::vec3(0,0,1));
 	
 	model = glm::translate(model, glm::vec3(1.5, 0, 0));
 	modelTemp = model;
-	model = glm::scale(model, glm::vec3(2, 1, 1));
+	model = glm::scale(model, glm::vec3(2, 1, .8));
 	projectionShader.setMat4("model", model);
 	projectionShader.setVec3("aColor", glm::vec3(0.0f, 0.0f, 1.0f));
 	glDrawArrays(GL_QUADS, 0, 24); //bicep
@@ -162,23 +206,191 @@ void display(void)
 	model = glm::rotate(model, glm::radians(angCodo), glm::vec3(0, 1, 0));//recordar poner la rotación despues del pivote(articulacion)
 	model = glm::translate(model, glm::vec3(1.5, 0, 0));//se suma la traslacion con la pasada
 	modelTemp = model;
-	model = glm::scale(model, glm::vec3(3, 1, 1));
+	model = glm::scale(model, glm::vec3(3, 1, .7));
 	projectionShader.setMat4("model", model);
 	projectionShader.setVec3("aColor", glm::vec3(1.0f, 0.0f, 0.0f));
 	glDrawArrays(GL_QUADS, 0, 24); //antebrazo
 	model = modelTemp;
-
+//palma
 
 	model = glm::translate(model, glm::vec3(1.5, 0, 0));//generamos pivote para la rotacion del antebrazo
 	model = glm::rotate(model, glm::radians(angMuñeca), glm::vec3(0, 1, 0));//recordar poner la rotación despues del pivote(articulacion)
 	model = glm::translate(model, glm::vec3(.5, 0, 0));//se suma la traslacion con la pasada
 	modelTemp = model;
-	model = glm::scale(model, glm::vec3(1, 1, 1));
+	model = glm::scale(model, glm::vec3(1, 1, .6));
 	projectionShader.setMat4("model", model);
 	projectionShader.setVec3("aColor", glm::vec3(0.0f, 1.0f, 0.0f));
-	glDrawArrays(GL_QUADS, 0, 24); //palma
+	glDrawArrays(GL_QUADS, 0, 24); 
 	model = modelTemp;
 	
+	modelTemp2 = model;
+
+	//pulgar
+	model = glm::translate(model, glm::vec3(-0.35, 0.5, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angPu), glm::vec3(1, 0, 0));
+
+	model = glm::translate(model, glm::vec3(0, 0.15, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.3, 0.3, .3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(0.8f, 0.0f, 9.0f));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp;
+
+	//pulg2
+	model = glm::translate(model, glm::vec3(0.0, 0.15, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angPu*0.7f), glm::vec3(1, 0, 0));
+	model = glm::translate(model, glm::vec3(0, 0.15, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.3, 0.3, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(1, 1, .6));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp2;
+
+	//indice
+
+	model = glm::translate(model, glm::vec3(0.5, 0.38, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angIn), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.3, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(1, 0.4, 0));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp;
+	//inice2
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angIn*0.7f), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.3, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(0.3, 0.7, .2));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp;
+	//indic3
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angIn*0.7f), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.3, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(1, 0.2, 0));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp2;
+
+
+	//medio
+	model = glm::translate(model, glm::vec3(0.5, 0.125, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angMed), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.4, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(1, 0.7, 0.3));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp;
+	//med2
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angMed*0.7f), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.25, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.4, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(0.2, 0.8, 1));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp;
+	//med3
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angMed*0.7f), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.25, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.4, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(1, 0.7, 0.3));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp2;
+
+	//anular
+	model = glm::translate(model, glm::vec3(0.5, -0.125, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angAnu), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.3, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(0, .5, 1));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp;
+	//an2
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angAnu*0.7f), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.3, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(1, 0.9, .5));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp;
+	//anu3
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angAnu*0.7f), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.15, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.3, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(0, .5, 1));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp2;
+
+	//meñique
+	model = glm::translate(model, glm::vec3(0.5, -0.375, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angMeñ), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.1, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.2, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(.4, .5, .7));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp;
+	//meñ2
+	model = glm::translate(model, glm::vec3(0.1, 0, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angMeñ*0.7f), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.1, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.2, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(2, 0.5, .9));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp;
+	//meñ3
+	model = glm::translate(model, glm::vec3(0.1, 0, 0));//pivote articulacion
+	model = glm::rotate(model, glm::radians(angMeñ*0.7f), glm::vec3(0, -1, 0));
+	model = glm::translate(model, glm::vec3(0.1, 0, 0));
+	projectionShader.setMat4("model", model);
+	modelTemp = model;
+	model = glm::scale(model, glm::vec3(0.2, 0.25, 0.3));//escalas
+	projectionShader.setMat4("model", model);
+	projectionShader.setVec3("aColor", glm::vec3(.4, .5, .7));
+	glDrawArrays(GL_QUADS, 0, 24);
+	model = modelTemp;
+
+
+
+
 
 	//modeltemp2 nos permite guardar los dedos por individual para no volver a temp
 
@@ -337,9 +549,75 @@ void my_input(GLFWwindow *window)
 		}
 
 
-	
-	
+		if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
 
+			if (glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS) {
+				if (angPu < 40) {
+					angPu += 0.8f;
+				}
+			}
+			else {
+				if (angPu > 0) {
+					angPu -= 0.8f;
+				}
+
+			}
+
+
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
+
+			if (glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS) {
+				if (angIn < 90) {
+					angIn += 0.8f;
+				}
+			}
+			else {
+				if (angIn > 0) {
+					angIn -= 0.8f;
+				}
+			}
+		}
+		if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
+
+			if (glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS) {
+				if (angMed < 90) {
+					angMed += 0.8f;
+				}
+			}
+			else {
+				if (angMed > 0) {
+					angMed -= 0.8f;
+				}
+			}
+		}
+		if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
+
+			if (glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS) {
+				if (angAnu < 90) {
+					angAnu += 0.8f;
+				}
+			}
+			else {
+				if (angAnu > 0) {
+					angAnu -= 0.8f;
+				}
+			}
+		}
+		if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS) {
+
+			if (glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS) {
+				if (angMeñ < 90) {
+					angMeñ += 0.8f;
+				}
+			}
+			else {
+				if (angMeñ > 0) {
+					angMeñ -= 0.8f;
+				}
+			}
+		}
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
